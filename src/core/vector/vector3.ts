@@ -3,6 +3,8 @@ export default class Vector3 {
     y: number;
     z: number;
 
+    static EPSILON: number = 0.000001;
+
     /**
      * @param {number} x
      * @param {number} y
@@ -77,6 +79,18 @@ export default class Vector3 {
 
     /**
      * @param {Vector3} v
+     * @returns {boolean}
+     */
+    eq(v: Vector3): boolean {
+        return (
+            Math.abs(this.x - v.x) < Vector3.EPSILON &&
+            Math.abs(this.y - v.y) < Vector3.EPSILON &&
+            Math.abs(this.z - v.z) < Vector3.EPSILON
+        );
+    }
+
+    /**
+     * @param {Vector3} v
      * @returns {Vector3}
      */
     static normalize(v: Vector3): Vector3 {
@@ -108,7 +122,7 @@ export default class Vector3 {
      */
     static distance(v1: Vector3, v2: Vector3): number {
         const l = v1.sub(v2);
-        return Math.sqrt(l.x * l.x + l.y * l.y);
+        return Math.sqrt(l.x * l.x + l.y * l.y + l.z * l.z);
     }
 
     /**
